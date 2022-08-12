@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "firstname": "w",
+      "lastname": "w",
+      "email": "w@w.com",
+      "phoneNumber": 888888888,
+      "bankAccountNumber": 88888888744,
+      "dateOfBirth": "2021-08-17T19:30:00.000Z",
+      "id": 2
+    },
+    {
+      "firstname": "ww",
+      "lastname": "ww",
+      "email": "s@s.com",
+      "phoneNumber": 9182255051,
+      "bankAccountNumber": 555555555555,
+      "dateOfBirth": "2022-08-11T19:30:00.000Z",
+      "id": 3
+    }
+  ]
+}

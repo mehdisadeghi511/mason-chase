@@ -1,0 +1,37 @@
+<div class="container mt-5 w-25 ">
+  <div class="row">
+    <form [formGroup]="form">
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input formControlName="firstname" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input formControlName="lastname" matInput />
+      </mat-form-field>
+
+      <div class="d-flex justify-content-between">
+        <button
+        [disabled]="form.invalid"
+        (click)="login(form.value)"
+        mat-raised-button
+        color="primary"
+        class="col-md-6"
+        [routerLink]="['/auth/login']"
+      >
+        login
+      </button>
+        <button
+          mat-raised-button
+          color="warn"
+          class="col-md-6"
+          [routerLink]="['/auth/register']"
+        >
+          Create new account
+        </button>
+
+      </div>
+    </form>
+  </div>
+</div>
