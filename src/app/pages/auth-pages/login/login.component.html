@@ -1,59 +1,37 @@
-<div class="container">
+<div class="container mt-5 w-25">
   <div class="row">
-    <h3 class="col-sm-offset-3 col-sm-6">Signup</h3>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <form
-        action="r"
-        method="post"
-        accept-charset="utf-8"
-        class="form"
-        role="form"
+    <form [formGroup]="form">
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input formControlName="firstname" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input formControlName="lastname" matInput />
+      </mat-form-field>
+
+      <div class="d-flex justify-content-between">
+        <button
+        [disabled]="form.invalid"
+        (click)="login(form.value)"
+        mat-raised-button
+        color="primary"
+        class="col-md-6"
+        [routerLink]="['/auth/login']"
       >
-        <div class="row">
-
-
-          <!-- <div class="col-xs-6 col-md-6">
-            <input
-              type="text"
-              name="firstname"
-              value=""
-              class="form-control input-lg"
-              placeholder="First Name"
-            />
-          </div>
-          <div class="col-xs-6 col-md-6">
-            <input
-              type="text"
-              name="lastname"
-              value=""
-              class="form-control input-lg"
-              placeholder="Last Name"
-            />
-          </div> -->
-        </div>
-        <input
-          type="text"
-          name="email"
-          value=""
-          class="form-control input-lg"
-          placeholder="Your Email"
-        />
+        login
+      </button>
         <button
-          class="btn btn-lg btn-primary btn-block signup-btn"
-          type="submit"
-        >
-          Login
-        </button>
-        <button
+          mat-raised-button
+          color="warn"
+          class="col-md-6"
           [routerLink]="['/auth/register']"
-          class="btn btn-lg btn-primary btn-block signup-btn"
-          type="submit"
         >
-          Register
+          Create new account
         </button>
-      </form>
-    </div>
+
+      </div>
+    </form>
   </div>
 </div>

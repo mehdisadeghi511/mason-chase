@@ -1,7 +1,8 @@
 import { IUser } from './../../../core/models/users-model';
-import { UsersService } from './../../../core/services/users.service';
+import { UsersService } from '../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
-
+  xxx!: any;
   firstname = `first name must be Unique! `;
   lastname = `last name must be Unique! `;
   dateOfBirth = `Date of brith must be Unique! `;
@@ -25,26 +26,36 @@ export class RegisterComponent implements OnInit {
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required]],
+      phoneNumber: [
+        '',
+        [Validators.required, Validators.pattern('^[0-9_-]{10}')],
+      ],
       bankAccountNumber: [
         '',
-        [
-          Validators.required,
-          Validators.minLength(9),
-          Validators.maxLength(18),
-        ],
+        [Validators.required, Validators.pattern('^[0-9_-]{9,18}')],
       ],
       dateOfBirth: ['', [Validators.required]],
     });
   }
 
-  submit(form: any) {
+  submit(f: any) {
+    let form = f.value;
     this.submitted = true;
-    let f = form.value;
+    console.log(`  form.valid`, f.invalid);
+    form.valid;
     this.userApi.getAll().subscribe((res) => {
-      this.chackUnique(res, f);
+      this.chackUnique(res, form);
+      if (
+        !this.firstnameErr &&
+        !this.lastnameErr &&
+        !this.dateOfBirthErr &&
+        !f.invalid
+      ) {
+        this.userApi.create(form).subscribe((res) => {
+          this.route.navigate(['/auth/login']);
+        });
+      }
     });
-    this.userApi.create(form.value).subscribe((res) => {});
   }
 
   chackUnique(res: any, f: any) {
@@ -61,11 +72,15 @@ export class RegisterComponent implements OnInit {
       : false;
   }
 
-  public myError = (controlName: string, errorName: string) => {
+  myError(controlName: string, errorName: string) {
     return this.form.controls[controlName].hasError(errorName);
-  };
+  }
 
-  constructor(private fb: FormBuilder, private userApi: UsersService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userApi: UsersService,
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
     this.createForm();

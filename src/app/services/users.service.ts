@@ -1,4 +1,4 @@
-import { IUser } from './../models/users-model';
+import { IUser } from '../core/models/users-model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -48,7 +48,7 @@ export class UsersService {
 
   delete(id: number) {
     return this.httpClient
-      .delete<IUser>(this.apiURL + '/users' + id, this.httpOptions)
+      .delete<IUser>(this.apiURL + '/users/' + id, this.httpOptions)
       .pipe(catchError(this.errorHandler));
   }
 
