@@ -1,1 +1,97 @@
-<p>register works!</p>
+<div class="container mt-5 w-25">
+  <div class="row">
+    <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>First name</mat-label>
+        <input formControlName="firstname" matInput />
+      </mat-form-field>
+      <mat-error
+        style="font-size: 11px"
+        *ngIf="myError('firstname', 'required') && submitted"
+      >
+        First Name is <strong>required</strong>
+      </mat-error>
+
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>Last name</mat-label>
+        <input formControlName="lastname" matInput />
+      </mat-form-field>
+      <mat-error
+        style="font-size: 11px"
+        *ngIf="myError('lastname', 'required') && submitted"
+      >
+        Last Name is <strong>required</strong>
+      </mat-error>
+
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput />
+      </mat-form-field>
+      <mat-error
+        style="font-size: 11px; margin-bottom: 10px"
+        *ngIf="myError('email', 'required') && submitted"
+      >
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error
+        style="font-size: 11px; margin-bottom: 10px"
+        *ngIf="myError('email', 'email') && submitted"
+      >
+        <strong>invalid</strong> email format
+      </mat-error>
+
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input formControlName="phoneNumber" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>Bank account number</mat-label>
+        <input type="number" formControlName="bankAccountNumber" matInput />
+      </mat-form-field>
+      <mat-error
+        style="font-size: 11px; margin-bottom: 10px"
+        *ngIf="myError('bankAccountNumber', 'required') && submitted"
+      >
+        Bank Account Number is <strong>required</strong>
+      </mat-error>
+      <mat-error
+        style="font-size: 11px; margin-bottom: 10px"
+        *ngIf="myError('email', 'maxlength') && submitted"
+      >
+        must be at <strong>least 9 digits long</strong>
+      </mat-error>
+      <mat-error
+        style="font-size: 11px; margin-bottom: 10px"
+        *ngIf="myError('email', 'inlength') && submitted"
+      >
+        must be a <strong>maximum of 9 digits</strong>
+      </mat-error>
+
+      <mat-form-field class="col-md-12" appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input
+          formControlName="dateOfBirth"
+          matInput
+          [matDatepicker]="picker"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+        <mat-error *ngIf="myError('dateOfBirth', 'required') && submitted"
+          >Age is required</mat-error
+        >
+      </mat-form-field>
+      <p class="col-md-12" *ngIf="firstnameErr">{{ firstname }}</p>
+      <p class="col-md-12" *ngIf="lastnameErr">{{ lastname }}</p>
+      <p class="col-md-12" *ngIf="dateOfBirthErr">{{ dateOfBirth }}</p>
+      <div class="d-flex justify-content-between">
+        <button mat-raised-button color="primary" class="col-md-6">
+          Create my account
+        </button>
+        <button mat-raised-button color="warn" class="col-md-6">
+          Back to login
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

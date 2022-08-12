@@ -1,4 +1,5 @@
 export class IUser {
+  id!: number;
   firstname!: string;
   lastname!: string;
   dateOfBirth!: string;
